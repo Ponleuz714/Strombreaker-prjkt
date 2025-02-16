@@ -222,7 +222,5 @@ $(shell ln -sf $(inner_oplus_wakelock_dir1) $(inner_oplus_link_target))
 else ifeq ($(inner_oplus_wakelock_dir2_exist), exist)
 $(warning "source is $(inner_oplus_wakelock_dir2)")
 $(shell ln -sf $(inner_oplus_wakelock_dir2) $(inner_oplus_link_target))
-else
-$(warning "source is nothing")
 endif
 endif
