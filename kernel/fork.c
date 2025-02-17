@@ -1712,7 +1712,7 @@ static __always_inline void delayed_free_task(struct task_struct *tsk)
 		free_task(tsk);
 }
 
-/*<<<<<<< HEAD
+/*<<<<<<< HEAD*/
 static int pidfd_release(struct inode *inode, struct file *file)
 {
 	struct pid *pid = file->private_data;
@@ -1735,7 +1735,7 @@ static void pidfd_show_fdinfo(struct seq_file *m, struct file *f)
 
 /*
  * Poll support for process exit notification.
- 
+ */
 static unsigned int pidfd_poll(struct file *file, struct poll_table_struct *pts)
 {
 	struct task_struct *task;
@@ -1750,7 +1750,7 @@ static unsigned int pidfd_poll(struct file *file, struct poll_table_struct *pts)
 	 * Inform pollers only when the whole thread group exits.
 	 * If the thread group leader exits before all other threads in the
 	 * group, then poll(2) should block, similar to the wait(2) family.
-	 
+	 */
 	if (!task || (task->exit_state && thread_group_empty(task)))
 		poll_flags = POLLIN | POLLRDNORM;
 	rcu_read_unlock();
@@ -1778,7 +1778,7 @@ const struct file_operations pidfd_fops = {
  *
  * Return: On success, a cloexec pidfd is returned.
  *         On error, a negative errno number will be returned.
- *
+ */
 static int pidfd_create(struct pid *pid)
 {
 	int fd;
@@ -1790,26 +1790,8 @@ static int pidfd_create(struct pid *pid)
 
 	return fd;
 }
-#ifdef
-static void copy_oom_score_adj(u64 clone_flags, struct task_struct *tsk)
-{
-	/* Skip if kernel thread 
-	if (!tsk->mm)
-		return;
 
-	/* Skip if spawning a thread or using vfork 
-	if ((clone_flags & (CLONE_VM | CLONE_THREAD | CLONE_VFORK)) != CLONE_VM)
-		return;
-
-	/* We need to synchronize with __set_oom_adj 
-	mutex_lock(&oom_adj_mutex);
-	set_bit(MMF_MULTIPROCESS, &tsk->mm->flags);
-	/* Update the values in case they were changed after copy_signal 
-	tsk->signal->oom_score_adj = current->signal->oom_score_adj;
-	tsk->signal->oom_score_adj_min = current->signal->oom_score_adj_min;
-	mutex_unlock(&oom_adj_mutex);
-}
-
+/*
 ||||||| ad326970d25c
 #endif
 =======
@@ -1833,7 +1815,7 @@ static void copy_oom_score_adj(u64 clone_flags, struct task_struct *tsk)
 	mutex_unlock(&oom_adj_mutex);
 }
 
-/*>>>>>>> 877d4a14eea6cdf3a4579579c72a1f1eeaf8878f
+/*>>>>>>> 877d4a14eea6cdf3a4579579c72a1f1eeaf8878f*/
 /*
  * This creates a new process as a copy of the old one,
  * but does not actually start it yet.
