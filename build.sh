@@ -25,7 +25,7 @@ echo -e "${txtbld}ARCH:${txtrst} arm64"
 echo -e "${txtbld}Username:${txtrst} $KBUILD_BUILD_USER"
 echo -e "$(make kernelversion)-release"
 
-if [[ $1 == "-mr" || $1 == "--mrproper" ]]; then
+if [[ $3 == "-mr" || $3 == "--mrproper" ]]; then
 if [  -d "./out/" ]; then
 echo -e " "
         rm -rf  ./out/
@@ -39,13 +39,13 @@ if [[ $1 == "-up" || $1 == "--update" ]]; then
 if [  -d "./out/" ]; then
 echo -e " "
         sudo apt-get update 
-        sudo apt-get install -y build-essential bc curl git zip ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python3 libarchive-tools device-tree-compiler zsh 
+        sudo apt-get install -y ccache cpio  build-essential bc curl git zip ftp gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi libssl-dev lftp zstd wget libfl-dev python3 libarchive-tools device-tree-compiler zsh 
 fi
 echo -e "dependencies installed"
 sleep 2
 fi
 
-if [[ $1 == "-clang" || $1 == "--clang" ]]; then
+if [[ $2 == "-clang" || $2 == "--clang" ]]; then
 if [  -d "./out/" ]; then
 echo -e " "
         git clone https://github.com/1ndev-ui/android_prebuilts_clang_host_linux-x86_clang-6443078 -b 11.0.1 ../clang --depth=1 
@@ -63,4 +63,4 @@ make O=out ARCH=arm64 $DEFCONFIG
 sleep 2
 # Build start
 echo -e "$blue    \nStarting kernel compilation...\n $nocol"
-make -j$(nproc --all) O=out ARCH=arm64 CC="ccache clang" AR=llvm-ar CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-gnueabi- CLANG_TRIPLE=aarch64-linux-gnu-
+make -j$(nproc --all) O=out ARCH=arm64 CC="ccache clang" CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- CLANG_TRIPLE=aarch64-linux-gnu-
