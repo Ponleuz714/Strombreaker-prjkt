@@ -1711,8 +1711,6 @@ static __always_inline void delayed_free_task(struct task_struct *tsk)
 	else
 		free_task(tsk);
 }
-
-/*<<<<<<< HEAD*/
 static int pidfd_release(struct inode *inode, struct file *file)
 {
 	struct pid *pid = file->private_data;
@@ -1790,12 +1788,6 @@ static int pidfd_create(struct pid *pid)
 
 	return fd;
 }
-
-/*
-||||||| ad326970d25c
-#endif
-=======
-*/
 static void copy_oom_score_adj(u64 clone_flags, struct task_struct *tsk)
 {
 	/* Skip if kernel thread */
@@ -1815,7 +1807,6 @@ static void copy_oom_score_adj(u64 clone_flags, struct task_struct *tsk)
 	mutex_unlock(&oom_adj_mutex);
 }
 
-/*>>>>>>> 877d4a14eea6cdf3a4579579c72a1f1eeaf8878f*/
 /*
  * This creates a new process as a copy of the old one,
  * but does not actually start it yet.

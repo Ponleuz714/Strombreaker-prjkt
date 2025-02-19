@@ -85,7 +85,6 @@ static int __msg_submit(struct mbox_chan *chan)
 exit:
 	spin_unlock_irqrestore(&chan->lock, flags);
 
-/*<<<<<<< HEAD*/
 	return err;
 }
 
@@ -103,22 +102,15 @@ static void msg_submit(struct mbox_chan *chan)
 	do {
 		err = __msg_submit(chan);
 	} while (err == -EAGAIN);
-
-/*	if (!err && (chan->txdone_method & TXDONE_BY_POLL))
-*/		/* kick start the timer immediately to avoid delays */
-/*		hrtimer_start(&chan->mbox->poll_hrt, 0, HRTIMER_MODE_REL);
-||||||| 79524e8c64bd*/
 	if (!err && (chan->txdone_method & TXDONE_BY_POLL))
 		/* kick start the timer immediately to avoid delays */
 		hrtimer_start(&chan->mbox->poll_hrt, 0, HRTIMER_MODE_REL);
-/*=======*/
 	/* kick start the timer immediately to avoid delays */
 	if (!err && (chan->txdone_method & TXDONE_BY_POLL)) {
 		/* but only if not already active */
 		if (!hrtimer_active(&chan->mbox->poll_hrt))
 			hrtimer_start(&chan->mbox->poll_hrt, 0, HRTIMER_MODE_REL);
 	}
-/*>>>>>>> c45d00ee4449926db93afa18b26b544631a1d16f*/
 }
 
 static void tx_tick(struct mbox_chan *chan, int r)
